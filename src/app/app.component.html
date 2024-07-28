@@ -1,6 +1,36 @@
+<!--The data bindings provide access to data supplied by the component.-->
 <mat-toolbar color="primary" class="mat-elevation-z3">
+   <span class="spacer"></span>
    <span>{{ username }}'s to do list</span>
+   <span class="spacer"></span>
    <mat-icon matBadge="{{ itemCount }}" matBadgeColor="accent" aria-hidden="false">
       checklist
    </mat-icon>
 </mat-toolbar>
+
+<div class="tableContainer">
+   <!--`[]` denotes an attribute binding.-->
+   <table mat-table [dataSource]="items" class="mat-elevation-z3 fullWidth">
+      <ng-container matColumnDef="id">
+         <!--mat-header-cell defines the appearance of the header cell
+         *matHeaderCellDef defines the behaviour-->
+         <th mat-header-cell *matHeaderCellDef>#</th>
+         <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+      </ng-container>
+      
+      <ng-container matColumnDef="task">
+         <th mat-header-cell *matHeaderCellDef>Task</th>
+         <td mat-cell *matCellDef="let item">{{ item.task }}</td>
+      </ng-container>
+      
+      <ng-container matColumDef="done">
+         <th mat-header-cell *matHeaderCellDef>Done</th>
+         <!--The expression assigned *matCellDef attribute is evaluated for each item in the data source and assigned 
+         to a variable. This variable is then used in a data binding to populate the table cell.-->
+         <th mat-cell *matCellDef="let item">{{ item.done }}</th>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['id', 'task', 'done']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'task', 'done'];"></tr>
+   </table>
+</div>

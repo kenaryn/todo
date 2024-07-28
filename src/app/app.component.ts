@@ -15,13 +15,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Provides metadata about a class (i.e. config info).
 @Component({
-  selector: 'app-root', // CSS selector that matches HTML tag to which the component will be applied
+  // CSS selector that matches HTML tag to which the component will be applied.
+  selector: 'app-root',
   standalone: true,
   imports: [
     FormsModule,
     MatButtonModule, MatToolbarModule, MatIconModule, MatBadgeModule,
     MatTableModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule ],
   templateUrl: './app.component.html',
+  // property that sets the CSS file applied to the component's template.
   styleUrl: './app.component.css'
 })
 
@@ -41,6 +43,10 @@ export class AppComponent {
   }
 
   get itemCount(): number {
-    return this.list.items.filter(item => !item.complete).length;
+    return this.list.items.filter(item => !item.done).length;
+  }
+
+  get items(): readonly TodoItem[] {
+    return this.list.items;
   }
 }
